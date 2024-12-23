@@ -1,5 +1,5 @@
-import 'package:firebaseemobil/kayitOl.dart';
-import 'package:firebaseemobil/login.dart';
+import 'package:firebaseemobil/LoginPages/kayitOl.dart';
+import 'package:firebaseemobil/LoginPages/login.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -77,7 +77,9 @@ class Loginsecme extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Login(),
+                        builder: (context) => Login(
+                          showloginpage: () {},
+                        ),
                       ),
                     );
                   },
@@ -109,7 +111,9 @@ class Loginsecme extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Kayitol(),
+                        builder: (context) => Kayitol(
+                          showkayitol: () {},
+                        ),
                       ),
                     );
                   },

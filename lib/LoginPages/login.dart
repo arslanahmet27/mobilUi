@@ -1,13 +1,44 @@
-import 'package:firebaseemobil/metinKutusu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebaseemobil/LoginPages/PasswordReset.dart';
+import 'package:firebaseemobil/LoginPages/metinKutusu.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class Login extends StatefulWidget {
+  final VoidCallback showloginpage;
+  const Login({super.key, required this.showloginpage});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final _mailcontroller = TextEditingController();
     final _Passwordcontroller = TextEditingController();
+
+    Future GirisYap() async {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _mailcontroller.text.trim(),
+          password: _Passwordcontroller.text.trim());
+      Navigator.pop(context);
+    }
+
+    @override
+    void dispose() {
+      _mailcontroller.dispose();
+      _Passwordcontroller.dispose();
+      super.dispose();
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -77,12 +108,25 @@ class Login extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(
-                              "Forget Password?",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey.shade600),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Passwordreset(
+                                      conroller: () {},
+                                      Obscuretext: false,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                "Forget Password?",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey.shade600),
+                              ),
                             )
                           ],
                         ),
@@ -92,19 +136,22 @@ class Login extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.blue.shade700,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                        child: GestureDetector(
+                          onTap: GirisYap,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade700,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

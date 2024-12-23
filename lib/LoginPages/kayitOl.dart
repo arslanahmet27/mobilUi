@@ -1,14 +1,58 @@
-import 'package:firebaseemobil/metinKutusu.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebaseemobil/LoginPages/metinKutusu.dart';
 import 'package:flutter/material.dart';
 
-class Kayitol extends StatelessWidget {
-  const Kayitol({super.key});
+class Kayitol extends StatefulWidget {
+  final VoidCallback showkayitol;
+  const Kayitol({super.key, required this.showkayitol});
 
+  @override
+  State<Kayitol> createState() => _KayitolState();
+}
+
+class _KayitolState extends State<Kayitol> {
   @override
   Widget build(BuildContext context) {
     final _namecontroller = TextEditingController();
     final _mailcontroller = TextEditingController();
     final _passwordcontroller = TextEditingController();
+    @override
+    void dispose() {
+      _mailcontroller.dispose();
+      _passwordcontroller.dispose();
+      _namecontroller.dispose();
+      super.dispose();
+    }
+
+    Future SignUp() async {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      );
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _mailcontroller.text.trim(),
+          password: _passwordcontroller.text.trim());
+      Navigator.pop(context);
+    }
+
+    Future adduserdetails(String name, String mail) async {
+      await FirebaseFirestore.instance.collection("users").add(
+        {
+          "firstName": name,
+          "Mail": mail,
+        },
+      );
+      adduserdetails(
+        _mailcontroller.text.trim(),
+        _namecontroller.text.trim(),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -102,19 +146,22 @@ class Kayitol extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.blue.shade700,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                        child: GestureDetector(
+                          onTap: SignUp,
+                          child: Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.shade700,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Sign Up",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

@@ -1,7 +1,10 @@
-import 'package:firebaseemobil/loginSecme.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebaseemobil/LoginPages/KayitKontrol.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(myapp());
 }
 
@@ -12,7 +15,7 @@ class myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Loginsecme(),
+      home: Kayitkontrol(),
     );
   }
 }
