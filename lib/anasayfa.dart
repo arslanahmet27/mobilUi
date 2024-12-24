@@ -43,12 +43,29 @@ class _AnasayfaState extends State<Anasayfa> {
             );
           },
         ),
+        title: Text(
+          "Hoşgeldiniz",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+        ),
         actions: [
+          Container(
+            padding: EdgeInsets.all(7),
+            decoration:
+                BoxDecoration(color: Colors.black, shape: BoxShape.circle),
+            child: Icon(
+              Icons.person,
+              size: 40,
+              color: Colors.white,
+            ),
+          ),
           IconButton(
             onPressed: () {
               FirebaseAuth.instance.signOut();
             },
-            icon: Icon(Icons.logout_sharp),
+            icon: Icon(
+              Icons.logout_sharp,
+              color: Colors.black,
+            ),
           ),
         ],
       ),
