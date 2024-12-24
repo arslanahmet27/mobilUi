@@ -1,5 +1,6 @@
 import 'package:firebaseemobil/models/AnaekranKutuclass.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 // ignore: must_be_immutable
 class Anaekrankutu extends StatelessWidget {
@@ -16,7 +17,7 @@ class Anaekrankutu extends StatelessWidget {
         width: _screenwdith * 0.8,
         height: _screenHeight * 0.1,
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Center(
@@ -34,7 +35,7 @@ class Anaekrankutu extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                            color: Colors.black),
                       ),
                       Icon(
                         kutu.emoji,
@@ -49,45 +50,70 @@ class Anaekrankutu extends StatelessWidget {
                   height: _screenHeight * 0.4,
                   decoration: BoxDecoration(
                     color: Colors.white,
+                    image: DecorationImage(
+                        image: AssetImage(
+                            "lib/images/pexels-sedanur-kunuk-78972032-29866942.jpg"),
+                        fit: BoxFit.cover),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      kutu.urunismi,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                    Container(
-                      child: Row(
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Sepete Ekle",
+                            kutu.urunismi,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 4.0,
+                          ),
+                          Text(
+                            kutu.fiyat,
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
+                                color: Colors.black),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: Colors.purple.shade300,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Sepete Ekle",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                                Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                Row(
-                  children: [
-                    Text(
-                      kutu.fiyat,
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ],
-                )
               ],
             ),
           ),

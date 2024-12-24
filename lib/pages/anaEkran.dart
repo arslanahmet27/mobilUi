@@ -65,7 +65,7 @@ class Anaekran extends StatelessWidget {
                       name: "Kahve",
                       emoji: Icons.favorite,
                       urunismi: "Kahve",
-                      fiyat: "250",
+                      fiyat: "\$250",
                     ),
                   );
                 },
