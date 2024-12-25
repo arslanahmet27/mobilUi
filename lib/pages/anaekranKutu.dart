@@ -1,16 +1,28 @@
-import 'package:firebaseemobil/models/AnaekranKutuclass.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 // ignore: must_be_immutable
 class Anaekrankutu extends StatelessWidget {
-  anaekran kutu;
-  Anaekrankutu({super.key, required this.kutu});
+  final String name;
+  final IconData emoji;
+  final String urunismi;
+  final String fiyat;
+  void Function()? onTap;
+  final String resim;
+
+  Anaekrankutu(
+      {super.key,
+      required this.emoji,
+      required this.fiyat,
+      required this.name,
+      required this.urunismi,
+      required this.onTap,
+      required this.resim});
 
   @override
   Widget build(BuildContext context) {
     double _screenHeight = MediaQuery.of(context).size.height;
     double _screenwdith = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Container(
@@ -31,14 +43,14 @@ class Anaekrankutu extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        kutu.name,
+                        name,
                         style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
                       Icon(
-                        kutu.emoji,
+                        emoji,
                         size: 30,
                         color: Colors.red,
                       ),
@@ -51,9 +63,7 @@ class Anaekrankutu extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     image: DecorationImage(
-                        image: AssetImage(
-                            "lib/images/pexels-sedanur-kunuk-78972032-29866942.jpg"),
-                        fit: BoxFit.cover),
+                        image: AssetImage(resim), fit: BoxFit.cover),
                   ),
                 ),
                 Padding(
@@ -66,7 +76,7 @@ class Anaekrankutu extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            kutu.urunismi,
+                            urunismi,
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.black,
@@ -77,7 +87,7 @@ class Anaekrankutu extends StatelessWidget {
                             height: 4.0,
                           ),
                           Text(
-                            kutu.fiyat,
+                            fiyat,
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -87,26 +97,29 @@ class Anaekrankutu extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: Colors.purple.shade300,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Sepete Ekle",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                Icon(
-                                  Icons.shopping_cart,
-                                  color: Colors.white,
-                                ),
-                              ],
+                          GestureDetector(
+                            onTap: onTap,
+                            child: Container(
+                              padding: EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: Colors.purple.shade300,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Sepete Ekle",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                  Icon(
+                                    Icons.shopping_cart,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],

@@ -1,6 +1,7 @@
-import 'package:firebaseemobil/models/AnaekranKutuclass.dart';
+import 'package:firebaseemobil/cart_model.dart';
 import 'package:firebaseemobil/pages/anaekranKutu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Anaekran extends StatelessWidget {
   const Anaekran({super.key});
@@ -56,17 +57,24 @@ class Anaekran extends StatelessWidget {
               height: 20,
             ),
             Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return Anaekrankutu(
-                    kutu: anaekran(
-                      name: "Kahve",
-                      emoji: Icons.favorite,
-                      urunismi: "Kahve",
-                      fiyat: "\$250",
-                    ),
+              child: Consumer<cartmodel>(
+                builder: (context, value, child) {
+                  return ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: value.shopping_cart.length,
+                    itemBuilder: (context, index) {
+                      return Anaekrankutu(
+                        name: value.shopping_cart[index][0],
+                        emoji: value.shopping_cart[index][1],
+                        urunismi: value.shopping_cart[index][3],
+                        fiyat: value.shopping_cart[index][4],
+                        onTap: () {
+                          Provider.of<cartmodel>(context, listen: false)
+                              .addspetimEkle(index);
+                        },
+                        resim: value.shopping_cart[index][2],
+                      );
+                    },
                   );
                 },
               ),
