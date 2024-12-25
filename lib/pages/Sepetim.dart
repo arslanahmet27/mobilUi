@@ -37,7 +37,12 @@ class Sepetim extends StatelessWidget {
                             subtitle: Text(
                               "\$" + value.shopping_cart[index][4],
                             ),
-                            trailing: Icon(Icons.cancel),
+                            trailing: IconButton(
+                              onPressed: () =>
+                                  Provider.of<cartmodel>(context, listen: false)
+                                      .removeSepetim(index),
+                              icon: Icon(Icons.cancel),
+                            ),
                           ),
                         ),
                       );
